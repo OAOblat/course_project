@@ -95,6 +95,4 @@ public class SQLHelper {
         private String created;
         private String status;
     }
-
-
 }

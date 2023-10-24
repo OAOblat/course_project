@@ -8,8 +8,6 @@ import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class PaymentPage {
-    private final SelenideElement buttonPayByCreditCard = $(".button.button_view_extra.button_size_m.button_theme_alfa-on-white > span.button__content > span.button__text");
-    private final SelenideElement headingCreditPay = $(byText("Кредит по данным карты"));
     private final SelenideElement cardNumberField = $("form > fieldset > div:nth-child(1) .input input");
     private final SelenideElement cardMonthField = $("form > fieldset > div:nth-child(2) > .input-group > span:nth-child(1) .input input");
     private final SelenideElement cardYearField = $("form > fieldset > div:nth-child(2) > .input-group > span:nth-child(2) .input input");
