@@ -125,7 +125,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты без указания номера карты")
-    void test1_3() {
+    void test2_3() {
         var paymentPage = new PaymentPage();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
         var cardYear = DataHelper.generateValidMonthAndYear().getCardYear();
@@ -151,7 +151,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Отклонение оплаты с недействительным номером карты")
-    void test1_4() {
+    void test2_4() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.generateRandomCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -181,7 +181,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с 15-значным номером карты")
-    void test1_5() {
+    void test2_5() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.generateInvalidCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -207,7 +207,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с буквами вместо цифр в номере карты")
-    void test1_6() {
+    void test2_6() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.getCardNumberNotNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -233,7 +233,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты без указания месяца")
-    void test1_7() {
+    void test2_7() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardYear = DataHelper.generateValidMonthAndYear().getCardYear();
@@ -258,7 +258,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с истекшим сроком действия карты (месяц меньше текущего, год - текущий)")
-    void test1_8() {
+    void test2_8() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateExpiredCardMonthAndYear().getCardMonth();
@@ -284,7 +284,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле МЕСЯЦ (один символ)")
-    void test1_9() {
+    void test2_9() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateInvalidCardMonthOneSymbol().getCardMonth();
@@ -310,7 +310,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле МЕСЯЦ (больше 12)")
-    void test1_10() {
+    void test2_10() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateInvalidCardMonthFrom13To99().getCardMonth();
@@ -336,7 +336,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле МЕСЯЦ (00)")
-    void test1_11() {
+    void test2_11() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.getInvalidCardMonth00().getCardMonth();
@@ -362,7 +362,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле МЕСЯЦ (буквы)")
-    void test1_12() {
+    void test2_12() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateInvalidCardMonthAndYearNotNumber().getCardMonth();
@@ -388,7 +388,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты без указания года")
-    void test1_13() {
+    void test2_13() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -413,7 +413,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с истекшим сроком действия карты (год - из прошлого)")
-    void test1_14() {
+    void test2_14() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateInvalidCardMonthAndYearUntilValidYears().getCardMonth();
@@ -439,7 +439,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле ГОД (> 5 лет от текущего года)")
-    void test1_15() {
+    void test2_15() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateInvalidCardMonthAndYearAfterValidYears().getCardMonth();
@@ -465,7 +465,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле ГОД (буквы)")
-    void test1_16() {
+    void test2_16() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateInvalidCardMonthAndYearAfterValidYears().getCardMonth();
@@ -491,7 +491,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты без указания владельца")
-    void test1_17() {
+    void test2_17() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -516,7 +516,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле ВЛАДЕЛЕЦ (цифры)")
-    void test1_18() {
+    void test2_18() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -546,7 +546,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле ВЛАДЕЛЕЦ (на кириллице)")
-    void test1_19() {
+    void test2_19() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -576,7 +576,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле ВЛАДЕЛЕЦ (1 символ)")
-    void test1_20() {
+    void test2_20() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -606,7 +606,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле ВЛАДЕЛЕЦ (более 26 символов)")
-    void test1_21() {
+    void test2_21() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -636,7 +636,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением в поле ВЛАДЕЛЕЦ (спец. символы)")
-    void test1_22() {
+    void test2_22() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -666,7 +666,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты без указания CVV/CVC")
-    void test1_23() {
+    void test2_23() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -691,7 +691,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением CVV/CVC (1 цифра)")
-    void test1_24() {
+    void test2_24() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -717,7 +717,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением CVV/CVC (буквы)")
-    void test1_25() {
+    void test2_25() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
@@ -743,7 +743,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Успешная покупка с номером карты со статусом APPROVED, месяц и год - текущие")
-    void test1_26() {
+    void test2_26() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateCurrentMonthAndYear().getCardMonth();
@@ -781,7 +781,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Успешная покупка с номером карты со статусом APPROVED, Владелец - разрешенные 2 символа")
-    void test1_27() {
+    void test2_27() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateCurrentMonthAndYear().getCardMonth();
@@ -819,7 +819,7 @@ public class CreditCardTest {
 
     @Test
     @DisplayName("Неуспешная попытка оплаты с невалидным значением CVV/CVC (2 цифры)")
-    void test1_28() {
+    void test2_28() {
         var paymentPage = new PaymentPage();
         var cardNumber = DataHelper.approvedCardNumber().getCardNumber();
         var cardMonth = DataHelper.generateValidMonthAndYear().getCardMonth();
