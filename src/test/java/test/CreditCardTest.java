@@ -108,7 +108,7 @@ public class CreditCardTest {
                             assertTrue(notificationStatusError.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 4: Проверка видимости уведомления об успехе", () -> {
+                        step("Шаг 4: Проверка отсутствия видимости уведомления об успехе", () -> {
                             assertFalse(notificationStatusOk.isDisplayed());
                         }),
                 () ->
