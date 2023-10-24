@@ -479,7 +479,7 @@ public class DebitCardTest {
                             assertTrue(inputInvalid.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 4: Проверка видимости успешной отправки формы", () -> {
+                        step("Шаг 4: Проверка отсутствия видимости успешной отправки формы", () -> {
                             assertFalse(notification.isDisplayed());
                         })
         );
