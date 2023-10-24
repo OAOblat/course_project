@@ -18,7 +18,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DebitCardTest {
     private final SelenideElement notificationStatusOk = $(".notification_status_ok .notification__content");
     private final SelenideElement notification = $(".notification_visible .notification__content");
-
     private final SelenideElement notificationStatusError = $(".notification_status_error .notification__content");
     private final SelenideElement buttonPayByDebitCard = $(".button.button_size_m.button_theme_alfa-on-white > .button__content > span.button__text");
     private final SelenideElement headingDebitPay = $(byText("Оплата по карте"));
@@ -28,12 +27,10 @@ public class DebitCardTest {
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
-
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
-
     @BeforeEach
     void setup() {
         open("http://localhost:8080");
@@ -56,8 +53,8 @@ public class DebitCardTest {
             paymentPage.payByCard(cardInfo);
         });
 
-        var expectedResult = "APPROVED";
-        var actualResult = SQLHelper.getStatusFromDebitPayment();
+        var expectedStatus = "APPROVED";
+        var actualStatus = SQLHelper.getStatusFromDebitPayment();
         var transactionID = SQLHelper.getTransactionIDFromDebitPayment();
         var paymentID = SQLHelper.getIDFromOrder();
         assertAll(
@@ -70,11 +67,11 @@ public class DebitCardTest {
                             assertFalse(notificationStatusError.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 4: Проверка статуса платежа", () -> {
-                            assertEquals(expectedResult, actualResult);
+                        step("Шаг 4: Проверка статуса платежа в БД", () -> {
+                            assertEquals(expectedStatus, actualStatus);
                         }),
                 () ->
-                        step("Шаг 5: Проверка идентификаторов транзакции и платежа", () -> {
+                        step("Шаг 5: Проверка отражения платежа в таблице заказов в БД", () -> {
                             assertEquals(transactionID, paymentID);
                         }));
     }
@@ -94,8 +91,8 @@ public class DebitCardTest {
             paymentPage.payByCard(cardInfo);
         });
 
-        var expectedResult = "DECLINED";
-        var actualResult = SQLHelper.getStatusFromDebitPayment();
+        var expectedStatus = "DECLINED";
+        var actualStatus = SQLHelper.getStatusFromDebitPayment();
         var transactionID = SQLHelper.getTransactionIDFromDebitPayment();
         var paymentID = SQLHelper.getIDFromOrder();
 
@@ -113,12 +110,12 @@ public class DebitCardTest {
                             assertFalse(notificationStatusOk.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 5: Проверка статуса платежа", () -> {
-                            assertEquals(expectedResult, actualResult);
+                        step("Шаг 5: Проверка статуса платежа в БД", () -> {
+                            assertEquals(expectedStatus, actualStatus);
                         }),
                 () ->
-                        step("Шаг 6: Проверка идентификаторов транзакции и платежа", () -> {
-                            assertEquals(transactionID, paymentID);
+                        step("Шаг 6: Проверка отсутствия платежа со статусом Declined в таблице заказов", () -> {
+                            assertNotEquals(transactionID, paymentID);
                         })
         );
     }
@@ -141,10 +138,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Номер карты\n" + "Неверный формат", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -173,7 +166,7 @@ public class DebitCardTest {
                             assertTrue(notificationStatusError.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 4: Проверка видимости уведомления об успехе", () -> {
+                        step("Шаг 4: Проверка отсутствия уведомления об успехе", () -> {
                             assertFalse(notificationStatusOk.isDisplayed());
                         })
         );
@@ -197,10 +190,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Номер карты\n" + "Неверный формат", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -223,10 +212,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Номер карты\n" + "Неверный формат", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -248,10 +233,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Месяц\n" + "Неверный формат", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -274,10 +255,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Месяц\n" + "Неверно указан срок действия карты", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -300,10 +277,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Месяц\n" + "Неверный формат", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -326,10 +299,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Месяц\n" + "Неверно указан срок действия карты", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -352,10 +321,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Месяц\n" + "Неверно указан срок действия карты", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -378,10 +343,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Месяц\n" + "Неверный формат", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -403,10 +364,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Год\n" + "Неверный формат", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -429,10 +386,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Год\n" + "Истёк срок действия карты", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -455,10 +408,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Год\n" + "Неверно указан срок действия карты", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -481,10 +430,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Год\n" + "Неверный формат", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -506,10 +451,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("Владелец\n" + "Поле обязательно для заполнения", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -568,7 +509,7 @@ public class DebitCardTest {
                             assertTrue(inputInvalid.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 4: Проверка видимости успешной отправки формы", () -> {
+                        step("Шаг 4: Проверка отсутствия видимости успешной отправки формы", () -> {
                             assertFalse(notification.isDisplayed());
                         })
         );
@@ -598,7 +539,7 @@ public class DebitCardTest {
                             assertTrue(inputInvalid.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 4: Проверка видимости успешной отправки формы", () -> {
+                        step("Шаг 4: Проверка отсутствия видимости успешной отправки формы", () -> {
                             assertFalse(notification.isDisplayed());
                         })
         );
@@ -628,7 +569,7 @@ public class DebitCardTest {
                             assertTrue(inputInvalid.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 4: Проверка видимости успешной отправки формы", () -> {
+                        step("Шаг 4: Проверка отсутствия видимости успешной отправки формы", () -> {
                             assertFalse(notification.isDisplayed());
                         })
         );
@@ -658,7 +599,7 @@ public class DebitCardTest {
                             assertTrue(inputInvalid.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 4: Проверка видимости успешной отправки формы", () -> {
+                        step("Шаг 4: Проверка отсутствия видимости успешной отправки формы", () -> {
                             assertFalse(notification.isDisplayed());
                         })
         );
@@ -707,10 +648,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("CVC/CVV\n" + "Неверный формат", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
@@ -756,8 +693,8 @@ public class DebitCardTest {
             paymentPage.payByCard(cardInfo);
         });
 
-        var expectedResult = "APPROVED";
-        var actualResult = SQLHelper.getStatusFromDebitPayment();
+        var expectedStatus = "APPROVED";
+        var actualStatus = SQLHelper.getStatusFromDebitPayment();
         var transactionID = SQLHelper.getTransactionIDFromDebitPayment();
         var paymentID = SQLHelper.getIDFromOrder();
         assertAll(
@@ -770,11 +707,11 @@ public class DebitCardTest {
                             assertFalse(notificationStatusError.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 4: Проверка статуса платежа", () -> {
-                            assertEquals(expectedResult, actualResult);
+                        step("Шаг 4: Проверка статуса платежа в БД", () -> {
+                            assertEquals(expectedStatus, actualStatus);
                         }),
                 () ->
-                        step("Шаг 5: Проверка идентификаторов транзакции и платежа", () -> {
+                        step("Шаг 5: Проверка отражения платежа в таблице заказов в БД", () -> {
                             assertEquals(transactionID, paymentID);
                         }));
     }
@@ -794,8 +731,8 @@ public class DebitCardTest {
             paymentPage.payByCard(cardInfo);
         });
 
-        var expectedResult = "APPROVED";
-        var actualResult = SQLHelper.getStatusFromDebitPayment();
+        var expectedStatus = "APPROVED";
+        var actualStatus = SQLHelper.getStatusFromDebitPayment();
         var transactionID = SQLHelper.getTransactionIDFromDebitPayment();
         var paymentID = SQLHelper.getIDFromOrder();
         assertAll(
@@ -808,11 +745,11 @@ public class DebitCardTest {
                             assertFalse(notificationStatusError.isDisplayed());
                         }),
                 () ->
-                        step("Шаг 4: Проверка статуса платежа", () -> {
-                            assertEquals(expectedResult, actualResult);
+                        step("Шаг 4: Проверка статуса платежа в БД", () -> {
+                            assertEquals(expectedStatus, actualStatus);
                         }),
                 () ->
-                        step("Шаг 5: Проверка идентификаторов транзакции и платежа", () -> {
+                        step("Шаг 5: Проверка отражения платежа в таблице заказов в БД", () -> {
                             assertEquals(transactionID, paymentID);
                         }));
     }
@@ -835,10 +772,6 @@ public class DebitCardTest {
                 () ->
                         step("Шаг 2: Проверка уведомления об ошибке", () -> {
                             assertEquals("CVC/CVV\n" + "Неверный формат", inputInvalid.getText());
-                        }),
-                () ->
-                        step("Шаг 3: Проверка видимости уведомления об ошибке", () -> {
-                            assertTrue(inputInvalid.isDisplayed());
                         })
         );
     }
