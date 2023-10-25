@@ -20,7 +20,9 @@ public class DebitCardTest {
     private final SelenideElement notification = $(".notification_visible .notification__content");
     private final SelenideElement notificationStatusError = $(".notification_status_error .notification__content");
     private final SelenideElement buttonPayByDebitCard = $(".button.button_size_m.button_theme_alfa-on-white > .button__content > span.button__text");
+//  private final SelenideElement buttonPayByDebitCard = $(byXpath("//span[text()='Купить']"));
     private final SelenideElement headingDebitPay = $(byText("Оплата по карте"));
+//  private final SelenideElement headingDebitPay = $(byXpath("//h3[text()='Оплата по карте']"));
     private final SelenideElement inputInvalid = $(".input_invalid");
 
     @BeforeAll

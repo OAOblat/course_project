@@ -14,6 +14,7 @@ public class PaymentPage {
     private final SelenideElement cardHolderNameField = $("form > fieldset > div:nth-child(3) > .input-group > span:nth-child(1) .input input");
     private final SelenideElement cardCodeField = $("form > fieldset > div:nth-child(3) > .input-group > span:nth-child(2) .input input");
     private final SelenideElement buttonSubmit = $($("form > fieldset > div:nth-child(4) button"));
+//  private final SelenideElement buttonSubmit = $(byXpath("//span[text()='Продолжить']"));
 
     public PaymentPage payByCard(DataHelper.CardInfo info) {
 

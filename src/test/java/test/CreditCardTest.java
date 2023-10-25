@@ -20,7 +20,9 @@ public class CreditCardTest {
     private final SelenideElement notification = $(".notification_visible .notification__content");
     private final SelenideElement notificationStatusError = $(".notification_status_error .notification__content");
     private final SelenideElement buttonPayByCreditCard = $(".button.button_view_extra.button_size_m.button_theme_alfa-on-white > span.button__content > span.button__text");
+//  private final SelenideElement buttonPayByCreditCard = $(byXpath("//span[text()='Купить в кредит']"));
     private final SelenideElement headingCreditPay = $(byText("Кредит по данным карты"));
+//  private final SelenideElement headingCreditPay = $(byXpath("//h3[text()='Кредит по данным карты']"));
     private final SelenideElement inputInvalid = $(".input_invalid");
 
     @BeforeAll
