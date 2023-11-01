@@ -7,7 +7,7 @@
 
 ## Тестовая документация:
 
-1. [План тестирования](documentation/Plan.md);
+1. [План автоматизации тестирования](documentation/Plan.md);
 1. [Отчёт по итогам тестирования](documentation/Report.md);
 1. [Отчет по итогам автоматизации](documentation/Summary.md)
 
