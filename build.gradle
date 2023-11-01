@@ -27,7 +27,7 @@ dependencies {
     testImplementation 'commons-codec:commons-codec:1.15'
     testImplementation 'com.google.code.gson:gson:2.10.1'
     testImplementation 'io.rest-assured:rest-assured:5.3.1'
-    testRuntimeOnly 'io.qameta.allure:allure-junit5:2.21.0'
+    testImplementation 'io.qameta.allure:allure-junit5:2.21.0'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'mysql:mysql-connector-java:8.0.33'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'

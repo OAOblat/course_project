@@ -24,37 +24,27 @@ public class DataHelper {
 
     /* ====== Номер карты ====== */
 
-    @Value
-    public static class CardNumber {
-        String cardNumber;
+    public static String approvedCardNumber() {
+        return "1111 2222 3333 4444";
     }
 
-    public static CardNumber approvedCardNumber() {
-        return new CardNumber("1111 2222 3333 4444");
+    public static String declinedCardNumber() {
+        return "5555 6666 7777 8888";
     }
 
-    public static CardNumber declinedCardNumber() {
-        return new CardNumber("5555 6666 7777 8888");
+    public static String getCardNumberNotNumber() {
+        return "фффф фффф фффф фффф";
     }
 
-    public static CardNumber getCardNumberNotNumber() {
-        return new CardNumber("фффф фффф фффф фффф");
+    public static String generateRandomCardNumber() {
+        return faker.numerify("################");
     }
 
-    public static CardNumber generateRandomCardNumber() {
-        return new CardNumber(faker.numerify("################"));
-    }
-
-    public static CardNumber generateInvalidCardNumber() {
-        return new CardNumber(faker.numerify("###############"));
+    public static String generateInvalidCardNumber() {
+        return faker.numerify("###############");
     }
 
     /*  ====== Месяц и год ====== */
-
-    @Value
-    public static class CardMonth {
-        String cardMonth;
-    }
 
     @Value
     public static class CardMonthAndYear {
@@ -63,84 +53,79 @@ public class DataHelper {
     }
 
     public static CardMonthAndYear generateCurrentMonthAndYear() { //месяц и год в данный момент времени
-        LocalDate currentDate = LocalDate.now();
-        int currentMonth = currentDate.getMonthValue();
-        String formattedMonth = String.format("%02d", currentMonth);
-        int currentYear = currentDate.getYear();
-        String formattedYear = String.format("%04d", currentYear).substring(2);
+        var currentDate = LocalDate.now();
+        var currentMonth = currentDate.getMonthValue();
+        var formattedMonth = String.format("%02d", currentMonth);
+        var currentYear = currentDate.getYear();
+        var formattedYear = String.format("%04d", currentYear).substring(2);
         return new CardMonthAndYear(formattedMonth, formattedYear);
     }
 
     public static CardMonthAndYear generateValidMonthAndYear() { //Валидный месяц и год (срок действия в течение 5 лет)
-        LocalDate currentDate = LocalDate.now();
-        String randomMonth = String.format("%02d", faker.number().numberBetween(1, 12));
-        int randomYear = Faker.instance().number().numberBetween(currentDate.getYear() + 1, currentDate.getYear() + 5);
-        String formattedYear = String.format("%04d", randomYear).substring(2);
+        var currentDate = LocalDate.now();
+        var randomMonth = String.format("%02d", faker.number().numberBetween(1, 12));
+        var randomYear = Faker.instance().number().numberBetween(currentDate.getYear() + 1, currentDate.getYear() + 5);
+        var formattedYear = String.format("%04d", randomYear).substring(2);
         return new CardMonthAndYear(randomMonth, formattedYear);
     }
 
     public static CardMonthAndYear generateExpiredCardMonthAndYear() { //Просроченная карта (срок закончился в этом году)
-        LocalDate currentDate = LocalDate.now();
-        int lastMonth = currentDate.getMonthValue() - 1;
-        String formattedMonth = String.format("%02d", lastMonth);
-        int currentYear = currentDate.getYear();
-        String formattedYear = String.format("%04d", currentYear).substring(2);
+        var currentDate = LocalDate.now();
+        var lastMonth = currentDate.getMonthValue() - 1;
+        var formattedMonth = String.format("%02d", lastMonth);
+        var currentYear = currentDate.getYear();
+        var formattedYear = String.format("%04d", currentYear).substring(2);
         return new CardMonthAndYear(formattedMonth, formattedYear);
     }
 
     public static CardMonthAndYear generateInvalidCardMonthAndYearUntilValidYears() { //Валидный месяц и невалидный год (до текущего года)
-        LocalDate currentDate = LocalDate.now();
-        String randomMonth = String.format("%02d", faker.number().numberBetween(1, 12));
-        int randomYear = Faker.instance().number().numberBetween(currentDate.getYear() - 23, currentDate.getYear() - 1);
-        String formattedYear = String.format("%04d", randomYear).substring(2);
+        var currentDate = LocalDate.now();
+        var randomMonth = String.format("%02d", faker.number().numberBetween(1, 12));
+        var randomYear = Faker.instance().number().numberBetween(currentDate.getYear() - 23, currentDate.getYear() - 1);
+        var formattedYear = String.format("%04d", randomYear).substring(2);
         return new CardMonthAndYear(randomMonth, formattedYear);
     }
 
     public static CardMonthAndYear generateInvalidCardMonthAndYearAfterValidYears() { //Валидный месяц и невалидный год (после 5 лет)
-        LocalDate currentDate = LocalDate.now();
-        String randomMonth = String.format("%02d", faker.number().numberBetween(1, 12));
-        int randomYear = Faker.instance().number().numberBetween(currentDate.getYear() + 6, currentDate.getYear() + 99);
-        String formattedYear = String.format("%04d", randomYear).substring(2);
+        var currentDate = LocalDate.now();
+        var randomMonth = String.format("%02d", faker.number().numberBetween(1, 12));
+        var randomYear = Faker.instance().number().numberBetween(currentDate.getYear() + 6, currentDate.getYear() + 99);
+        var formattedYear = String.format("%04d", randomYear).substring(2);
         return new CardMonthAndYear(randomMonth, formattedYear);
     }
 
-    public static CardMonth generateInvalidCardMonthFrom13To99() {
-        return new CardMonth(String.format("%02d", faker.number().numberBetween(13, 99)));
+    public static String generateInvalidCardMonthFrom13To99() {
+        return String.format("%02d", faker.number().numberBetween(13, 99));
     }
 
-    public static CardMonth getInvalidCardMonth00() {
-        return new CardMonth("00");
+    public static String getInvalidCardMonth00() {
+        return "00";
     }
 
-    public static CardMonth generateInvalidCardMonthOneSymbol() {
-        return new CardMonth(faker.numerify("#"));
+    public static String generateInvalidCardMonthOneSymbol() {
+        return faker.numerify("#");
     }
 
     public static CardMonthAndYear generateInvalidCardMonthAndYearNotNumber() {
         String[] invalidMonthOrYear = {"ab", "аб", "?!", "+)", ":%", "{="};
-        Random random = new Random();
-        String monthOrYear = invalidMonthOrYear[random.nextInt(invalidMonthOrYear.length)];
+        var random = new Random();
+        var monthOrYear = invalidMonthOrYear[random.nextInt(invalidMonthOrYear.length)];
         return new CardMonthAndYear(monthOrYear, monthOrYear);
     }
 
     /*  ====== Владелец ====== */
 
-    @Value
-    public static class CardholderName {
-        String cardholderName;
-    }
+    public static String generateRandomCardholderName() {
+        var firstName = faker.name().firstName().replaceAll("'", "");
+        var middleName = faker.name().firstName().replaceAll("'", "");;
+        var lastName = faker.name().lastName().replaceAll("'", "");;
 
-    public static CardholderName generateRandomCardholderName() {
-        String firstName = faker.name().firstName().replaceAll("'", "");
-        String middleName = faker.name().firstName().replaceAll("'", "");;
-        String lastName = faker.name().lastName().replaceAll("'", "");;
-
-        String cardholderName = firstName + "-" + middleName + " " + lastName;
+        var cardholderName = firstName + "-" + middleName + " " + lastName;
         if (cardholderName.length() > 26) {
-            int diff = cardholderName.length() - 26;
+            var diff = cardholderName.length() - 26;
             String[] names = {firstName, middleName, lastName};
-            for (int i = names.length - 1; i >= 0 && diff > 0; i--) {
-                String name = names[i];
+            for (var i = names.length - 1; i >= 0 && diff > 0; i--) {
+                var name = names[i];
                 if (name.length() <= diff) {
                     diff -= name.length() + 1; // Учитываем пробел или дефис
                     names[i] = "";
@@ -149,56 +134,51 @@ public class DataHelper {
             cardholderName = String.join(" ", names).trim().replaceAll("\\s+", " ");
         }
 
-        return new CardholderName(cardholderName);
+        return cardholderName;
     }
 
-    public static CardholderName getValidCardholderNameTwoSymbol() {
-        return new CardholderName("ab");
+    public static String getValidCardholderNameTwoSymbol() {
+        return "ab";
     }
 
-    public static CardholderName getInvalidCardholderNameOneSymbol() {
-        return new CardholderName("a");
+    public static String getInvalidCardholderNameOneSymbol() {
+        return "a";
     }
 
-    public static CardholderName getInvalidCardholderNameNumber() {
-        return new CardholderName("12345");
+    public static String getInvalidCardholderNameNumber() {
+        return "12345";
     }
 
-    public static CardholderName getInvalidCardholderNameSymbolMore26() {
-        return new CardholderName("Anderson Whitmore-Smithsonian");
+    public static String getInvalidCardholderNameSymbolMore26() {
+        return "Anderson Whitmore-Smithsonian";
     }
 
-    public static CardholderName getInvalidCardholderNameCyrillic() {
-        return new CardholderName("Александр Иванов");
+    public static String getInvalidCardholderNameCyrillic() {
+        return "Александр Иванов";
     }
 
-    public static CardholderName getInvalidCardholderNameSpecSymbol() {
-        return new CardholderName("??+!");
+    public static String getInvalidCardholderNameSpecSymbol() {
+        return "??+!";
     }
 
     /*  ====== CVV ====== */
 
-    @Value
-    public static class CardCode {
-        String cardCode;
+    public static String generateRandomCardCode() {
+        return faker.numerify("###");
     }
 
-    public static CardCode generateRandomCardCode() {
-        return new CardCode(faker.numerify("###"));
+    public static String generateInvalidCardCodeOne() {
+        return faker.numerify("#");
     }
 
-    public static CardCode generateInvalidCardCodeOne() {
-        return new CardCode(faker.numerify("#"));
+    public static String generateInvalidCardCodeTwo() {
+        return faker.numerify("##");
     }
 
-    public static CardCode generateInvalidCardCodeTwo() {
-        return new CardCode(faker.numerify("##"));
-    }
-
-    public static CardCode generateInvalidCardCodeNotNumbers() {
+    public static String generateInvalidCardCodeNotNumbers() {
         String[] invalidCardCode = {"abc", "абв", "?!!", "+)(", ":%%", "{}="};
-        Random random = new Random();
-        String cardCode = invalidCardCode[random.nextInt(invalidCardCode.length)];
-        return new CardCode(cardCode);
+        var random = new Random();
+        var cardCode = invalidCardCode[random.nextInt(invalidCardCode.length)];
+        return cardCode;
     }
 }
