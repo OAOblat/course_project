@@ -25,13 +25,6 @@ public class SQLHelper {
     }
 
     @SneakyThrows
-    private static Connection getConnectionPostgresql() {
-        return DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/app", "app", "pass"
-        );
-    }
-
-    @SneakyThrows
     public static SQLPayment getInfoFromDebitPayment() {
         var codeSQL = "SELECT * FROM payment_entity WHERE created >= (SELECT MAX(created) FROM payment_entity);";
         var conn = getConnectionMySQL();
@@ -42,7 +35,7 @@ public class SQLHelper {
     @SneakyThrows
     public static SQLCreditRequest getInfoFromCreditPayment() {
         var codeSQL =  "SELECT * FROM credit_request_entity WHERE created >= (SELECT MAX(created) FROM credit_request_entity);";
-        var conn = getConnectionPostgresql();
+        var conn = getConnectionMySQL();
         var result = runner.query(conn, codeSQL, new BeanHandler<>(SQLCreditRequest.class));
         return result;
     }
