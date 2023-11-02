@@ -18,7 +18,7 @@ jobs:
           java-version: 17
 
       - name: Run jar
-        run: java -jar ./artifacts/app-shop.jar
+        run: java -jar ./artifacts/aqa-shop.jar
 
       - name: Set executable permissions for gradlew
         run: chmod +x gradlew
