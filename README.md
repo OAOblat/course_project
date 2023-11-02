@@ -16,7 +16,7 @@
 1. [Отчёт по итогам тестирования](documentation/Report.md);
 1. [Отчет по итогам автоматизации](documentation/Summary.md)
 
-## Запуск приложения:
+## Шаги для воспроизведения:
 
 ### Подготовительный этап
 
@@ -30,7 +30,7 @@ git clone git@github.com:OAOblat/course_project.git
    
 ### Запуск тестового приложения 
 
-1. Запустить в контейнерах две базы данных — Mysql и Postgres
+1. Запустить в контейнерах две базы данных — Mysql и Postgres командой в терминале
 ```
 docker-compose up
 ```
@@ -40,6 +40,10 @@ docker-compose up
 | ``` java -jar artifacts/aqa-shop.jar ```                                      | ```java -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -Dspring.datasource.username=app -Dspring.datasource.password=pass -jar ./artifacts/aqa-shop.jar``` |
 | 3. Убедиться в готовности системы. Приложение должно быть доступно по адресу: | 3. Убедиться в готовности системы. Приложение должно быть доступно по адресу:                                                                                            |
 | ``` http://localhost:8080/ ```                                                | ``` http://localhost:8080/ ```                                                                                                                                           |
+### Запуск тестов
+
+| Mysql                                                                         | Postgresql                                                                                                                                                               |
+|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | 4. В новой вкладке терминала запустить тесты:                                 | 4. В новой вкладке терминала запустить тесты:                                                                                                                            |
 | ``` ./gradlew clean test ```                                                  | ``` ./gradlew test -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -Dspring.datasource.username=app -Dspring.datasource.password=pass ```                   |      
 ### Перезапуск тестов и приложения
