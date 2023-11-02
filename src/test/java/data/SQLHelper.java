@@ -6,6 +6,7 @@ import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -17,16 +18,23 @@ public class SQLHelper {
     }
 
     @SneakyThrows
-    private static Connection getConnection() {
+    private static Connection getConnectionMySQL() {
         return DriverManager.getConnection(
                 "jdbc:mysql://localhost:3306/app", "app", "pass"
         );
     }
 
     @SneakyThrows
+    private static Connection getConnectionPostgresql() {
+        return DriverManager.getConnection(
+                "jdbc:postgresql://localhost:5432/app", "app", "pass"
+        );
+    }
+
+    @SneakyThrows
     public static SQLPayment getInfoFromDebitPayment() {
         var codeSQL = "SELECT * FROM payment_entity WHERE created >= (SELECT MAX(created) FROM payment_entity);";
-        var conn = getConnection();
+        var conn = getConnectionMySQL();
         var result = runner.query(conn, codeSQL, new BeanHandler<>(SQLPayment.class));
         return result;
     }
@@ -34,7 +42,7 @@ public class SQLHelper {
     @SneakyThrows
     public static SQLCreditRequest getInfoFromCreditPayment() {
         var codeSQL =  "SELECT * FROM credit_request_entity WHERE created >= (SELECT MAX(created) FROM credit_request_entity);";
-        var conn = getConnection();
+        var conn = getConnectionPostgresql();
         var result = runner.query(conn, codeSQL, new BeanHandler<>(SQLCreditRequest.class));
         return result;
     }
@@ -42,7 +50,7 @@ public class SQLHelper {
     @SneakyThrows
     public static SQLOrder getInfoFromOrder() {
         var codeSQL = "SELECT * FROM order_entity WHERE created >= (SELECT MAX(created) FROM order_entity);";
-        var conn = getConnection();
+        var conn = getConnectionMySQL();
         var result = runner.query(conn, codeSQL, new BeanHandler<>(SQLOrder.class));
         return result;
     }
