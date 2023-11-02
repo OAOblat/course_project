@@ -6,32 +6,29 @@ on:
       - main
 
 jobs:
-  test-and-report:
+  test:
     runs-on: ubuntu-latest
-    
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: zulu
+          java-version: 17
+
+      - name: Run jar
+        run: java -jar ./artifacts/app-shop.jar
+
+      - name: Set executable permissions for gradlew
+        run: chmod +x gradlew
     
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        java-version: '11'
-    
-    - name: Setup MySQL
-      run: |
-        sudo apt-get update
-        sudo apt-get install mysql-server -y
       
-    
-    - name: Start MySQL service
-      run: sudo service mysql start
+      - name: Run tests
+        run: ./gradlew clean test
       
-    - name: Run tests
-      run: ./gradlew clean test
+      - name: Generate Allure Report
+        run: ./gradlew allureReport
       
-    - name: Generate Allure Report
-      run: ./gradlew allureReport
-      
-    - name: Serve Allure Report
-      run: ./gradlew allureServe
+      - name: Serve Allure Report
+        run: ./gradlew allureServe
