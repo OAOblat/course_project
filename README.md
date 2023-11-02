@@ -34,14 +34,14 @@ git clone git@github.com:OAOblat/course_project.git
 ```
 docker-compose up
 ```
-| Mysql                                                        |Postgresql                                                    |
-|--------------------------------------------------------------|--------------------------------------------------------------|
-|2. В новой вкладке терминала запустить тестируемое приложение:|2. В новой вкладке терминала запустить тестируемое приложение:|
-|``` java -jar artifacts/aqa-shop.jar ```                      |```java -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -Dspring.datasource.username=app -Dspring.datasource.password=pass -jar ./artifacts/aqa-shop.jar```|
-|3. Убедиться в готовности системы. Приложение должно быть доступно по адресу: |3. Убедиться в готовности системы. Приложение должно быть доступно по адресу: |
-|``` http://localhost:8080/ ```                                |``` http://localhost:8080/ ```                                |
-|4. В новой вкладке терминала запустить тесты:                 |4. В новой вкладке терминала запустить тесты:                 |
-|``` ./gradlew clean test ```                                  |``` ./gradlew test -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -Dspring.datasource.username=app -Dspring.datasource.password=pass ```|      
+| Mysql                                                                         | Postgresql                                                                                                                                                               |
+|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 2. В новой вкладке терминала запустить тестируемое приложение:                | 2. В новой вкладке терминала запустить тестируемое приложение:                                                                                                           |
+| ``` java -jar artifacts/aqa-shop.jar ```                                      | ```java -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -Dspring.datasource.username=app -Dspring.datasource.password=pass -jar ./artifacts/aqa-shop.jar``` |
+| 3. Убедиться в готовности системы. Приложение должно быть доступно по адресу: | 3. Убедиться в готовности системы. Приложение должно быть доступно по адресу:                                                                                            |
+| ``` http://localhost:8080/ ```                                                | ``` http://localhost:8080/ ```                                                                                                                                           |
+| 4. В новой вкладке терминала запустить тесты:                                 | 4. В новой вкладке терминала запустить тесты:                                                                                                                            |
+| ``` ./gradlew clean test ```                                                  | ``` ./gradlew test -Dspring.datasource.url=jdbc:postgresql://localhost:5432/app -Dspring.datasource.username=app -Dspring.datasource.password=pass ```                   |      
 ### Перезапуск тестов и приложения
 
 Для остановки приложения в окне терминала нужно ввести команду `Ctrl+С` и повторить необходимые действия из предыдущих
