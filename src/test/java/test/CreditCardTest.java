@@ -28,7 +28,7 @@ public class CreditCardTest {
         var paymentPage = new PaymentPage();
         paymentPage.openCreditPayPage();
     }
-/*
+
     @Test
     @DisplayName("Успешная покупка с валидными данными карты со статусом APPROVED")
     void test2_1_SuccessfulPurchaseWithValidCardDataAndApprovedStatus() {
@@ -724,5 +724,4 @@ public class CreditCardTest {
                         })
         );
     }
- */
 }

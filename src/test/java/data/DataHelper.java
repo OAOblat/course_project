@@ -13,11 +13,11 @@ public class DataHelper {
 
     @Value
     public static class CardInfo {
-        String cardNumber;
-        String cardMonth;
-        String cardYear;
-        String cardHolderName;
-        String cardCode;
+        String number;
+        String month;
+        String year;
+        String holder;
+        String cvc;
     }
 
     private static Faker faker = new Faker(new Locale("en"));

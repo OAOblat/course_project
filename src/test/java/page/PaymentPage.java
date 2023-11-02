@@ -34,11 +34,11 @@ public class PaymentPage {
 
     public void payByCard(DataHelper.CardInfo info) {
 
-        cardNumberField.setValue(info.getCardNumber());
-        cardMonthField.setValue(info.getCardMonth());
-        cardYearField.setValue(info.getCardYear());
-        cardHolderNameField.setValue(info.getCardHolderName());
-        cardCodeField.setValue(info.getCardCode());
+        cardNumberField.setValue(info.getNumber());
+        cardMonthField.setValue(info.getMonth());
+        cardYearField.setValue(info.getYear());
+        cardHolderNameField.setValue(info.getHolder());
+        cardCodeField.setValue(info.getCvc());
         buttonSubmit.click();
     }
 
