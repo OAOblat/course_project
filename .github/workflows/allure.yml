@@ -1,10 +1,5 @@
-name: Run tests and generate Allure Report
-
-on:
-  push:
-    branches:
-      - main
-
+name: Run tests and publish report
+on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -17,18 +12,33 @@ jobs:
           distribution: zulu
           java-version: 17
 
-      - name: Run jar
+      - name: Run tests
         run: java -jar ./artifacts/aqa-shop.jar
 
       - name: Set executable permissions for gradlew
         run: chmod +x gradlew
-    
-      
-      - name: Run tests
-        run: ./gradlew clean test
-      
-      - name: Generate Allure Report
-        run: ./gradlew allureReport
-      
-      - name: Serve Allure Report
-        run: ./gradlew allureServe
+
+
+      - name: Load test report history
+        uses: actions/checkout@v3
+        if: always()
+        continue-on-error: true
+        with:
+          ref: main
+          path: report
+
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
+        if: always()
+        with:
+          gh_pages: report
+          allure_history: allure-history
+          allure_results: build/allure-results
+
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+          github_token: $
+          publish_branch: gh-pages
+          publish_dir: allure-history
