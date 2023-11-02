@@ -1,20 +1,16 @@
 name: Run tests and publish report
-on:
-  push:
-    branches:
-      - main
-
+on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          distribution: zulu
+          java-version: 17
 
       - name: Run tests
         run: java -jar ./artifacts/aqa-shop.jar
@@ -22,21 +18,27 @@ jobs:
       - name: Set executable permissions for gradlew
         run: chmod +x gradlew
 
+
       - name: Load test report history
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         if: always()
+        continue-on-error: true
         with:
           ref: main
-          repository: https://github.com/OAOblat/course_project
           path: report
 
       - name: Build test report
-        uses: allure-framework/allure-github-action@v1
+        uses: simple-elf/allure-report-action@v1.7
         if: always()
+        with:
+          gh_pages: report
+          allure_history: allure-history
+          allure_results: build/allure-results
 
       - name: Publish test report
         uses: peaceiris/actions-gh-pages@v3
         if: always()
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: report/allure-report
+          github_token: $
+          publish_branch: gh-pages
+          publish_dir: allure-history
