@@ -30,6 +30,7 @@ dependencies {
     testImplementation 'io.qameta.allure:allure-junit5:2.21.0'
     testImplementation 'commons-dbutils:commons-dbutils:1.7'
     testImplementation 'mysql:mysql-connector-java:8.0.33'
+    testImplementation 'org.postgresql:postgresql:42.6.0'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
     testImplementation 'com.codeborne:selenide:6.17.1'
     testImplementation 'io.qameta.allure:allure-selenide:2.21.0'
