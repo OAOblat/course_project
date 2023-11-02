@@ -1,0 +1,37 @@
+name: Run tests and generate Allure Report
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-and-report:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+    
+    - name: Setup MySQL
+      run: |
+        sudo apt-get update
+        sudo apt-get install mysql-server -y
+      
+    
+    - name: Start MySQL service
+      run: sudo service mysql start
+      
+    - name: Run tests
+      run: ./gradlew clean test
+      
+    - name: Generate Allure Report
+      run: ./gradlew allureReport
+      
+    - name: Serve Allure Report
+      run: ./gradlew allureServe
